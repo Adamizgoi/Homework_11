@@ -11,16 +11,16 @@ public class ProductRepo {
             tmp[copyToIndex] = repo[copyToIndex];
             copyToIndex++;
         }
-        tmp[repo.length - 1] = newProduct;
+        tmp[tmp.length - 1] = newProduct;
         repo = tmp;
     }
 
-    public void removeById(Product newProduct) {
+    public void removeById(int id) {
         Product[] tmp = new Product[repo.length - 1];
         int copyToIndex = 0;
 
         for (Product someProduct : repo) {
-            if (newProduct.getId() != someProduct.getId()) {
+            if (id != someProduct.getId()) {
                 tmp[copyToIndex] = someProduct;
                 copyToIndex++;
             }

@@ -3,8 +3,6 @@ package ru.netology.homework.productmanager;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class ProductManager {
     private ProductRepo repo;
     public ProductManager(ProductRepo repo) {
@@ -20,9 +18,12 @@ public class ProductManager {
     public boolean checkSave(Product newProduct) {
         Product[] tmp = repo.showAll();
         for (Product someProduct : tmp) {
-            if (someProduct.getId() == newProduct.getId() || newProduct.getId() < 0) {
+            if (someProduct.getId() == newProduct.getId()) {
                 return false;
             }
+        }
+        if (newProduct.getId() < 0) {
+            return false;
         }
         return true;
     }
@@ -41,5 +42,9 @@ public class ProductManager {
 
     public boolean matches(String text, Product someProduct) {
         return someProduct.getName().contains(text);
+    }
+
+    public Product[] showAll() {
+        return repo.showAll();
     }
 }
