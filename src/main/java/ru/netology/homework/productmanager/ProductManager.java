@@ -5,6 +5,7 @@ import lombok.Setter;
 
 public class ProductManager {
     private ProductRepo repo;
+
     public ProductManager(ProductRepo repo) {
         this.repo = repo;
     }
@@ -31,17 +32,13 @@ public class ProductManager {
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
         for (Product someProduct : repo.showAll()) {
-            if(matches(text, someProduct)) {
+            if (someProduct.matches(text)) {
                 Product[] tmp = new Product[result.length + 1];
                 tmp[tmp.length - 1] = someProduct;
                 result = tmp;
             }
         }
         return result;
-    }
-
-    public boolean matches(String text, Product someProduct) {
-        return someProduct.getName().contains(text);
     }
 
     public Product[] showAll() {

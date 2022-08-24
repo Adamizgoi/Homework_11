@@ -7,7 +7,7 @@ public class ProductRepoTest {
 
     Product book1 = new Book(1, "Анна Каренина", 100.5, "Лев Толстой");
     Product smartphone1 = new Smartphone(2, "Nokia 15 ProSmart", 5500, "Nokia");
-    Product product1 = new Product(3,"Детская игрушка", 312);
+    Product product1 = new Product(3, "Детская игрушка", 312);
 
     ProductRepo repo = new ProductRepo();
 
