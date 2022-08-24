@@ -19,6 +19,18 @@ public class ProductRepoTest {
 
         Product[] expected = {smartphone1};
         Product[] actual = repo.showAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldTrowRightExceptionInRemoveByUnknownId() {
+        repo.save(book1);
+        repo.save(smartphone1);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(80);
+        });
     }
 
     @Test
