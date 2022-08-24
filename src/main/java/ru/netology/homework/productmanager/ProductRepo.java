@@ -4,6 +4,11 @@ public class ProductRepo {
     Product[] repo = new Product[0];
 
     public void save(Product newProduct) {
+        if (findById(newProduct.getId()) != null) {
+            throw new AlreadyExistsException(
+                    "Element with id: " + newProduct.getId() + " already exist"
+            );
+        }
         Product[] tmp = new Product[repo.length + 1];
         int copyToIndex = 0;
 
