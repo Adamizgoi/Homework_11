@@ -4,6 +4,11 @@ public class ProductRepo {
     Product[] repo = new Product[0];
 
     public void save(Product newProduct) {
+        if (findById(newProduct.getId()) != null) {
+            throw new AlreadyExistsException(
+                    "Element with id: " + newProduct.getId() + " already exist"
+            );
+        }
         Product[] tmp = new Product[repo.length + 1];
         int copyToIndex = 0;
 
@@ -16,6 +21,11 @@ public class ProductRepo {
     }
 
     public void removeById(int id) {
+        if (findById(id) == null) {
+            throw new NotFoundException(
+                    "Element with id: " + id + " not found"
+            );
+        }
         Product[] tmp = new Product[repo.length - 1];
         int copyToIndex = 0;
 
@@ -26,6 +36,15 @@ public class ProductRepo {
             }
         }
         repo = tmp;
+    }
+
+    public Product findById(int id) {
+        for (Product someProduct : repo) {
+            if (someProduct.getId() == id) {
+                return someProduct;
+            }
+        }
+        return null;
     }
 
     public Product[] showAll() {

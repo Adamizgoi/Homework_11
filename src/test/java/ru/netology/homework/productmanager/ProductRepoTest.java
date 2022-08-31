@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 public class ProductRepoTest {
 
     Product book1 = new Book(1, "Анна Каренина", 100.5, "Лев Толстой");
+    Product book2error = new Book(1, "Мертвые души", 300, "Николай Гоголь");
     Product smartphone1 = new Smartphone(2, "Nokia 15 ProSmart", 5500, "Nokia");
-    Product product1 = new Product(3,"Детская игрушка", 312);
+    Product product1 = new Product(3, "Детская игрушка", 312);
 
     ProductRepo repo = new ProductRepo();
 
@@ -19,6 +20,18 @@ public class ProductRepoTest {
 
         Product[] expected = {smartphone1};
         Product[] actual = repo.showAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldTrowRightExceptionInRemoveByUnknownId() {
+        repo.save(book1);
+        repo.save(smartphone1);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(80);
+        });
     }
 
     @Test
@@ -29,5 +42,14 @@ public class ProductRepoTest {
         Product[] actual = repo.showAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSaveProductWithAlreadyExistedId() {
+        repo.save(book1);
+
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            repo.save(book2error);
+        });
     }
 }
