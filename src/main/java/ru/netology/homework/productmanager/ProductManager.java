@@ -30,12 +30,21 @@ public class ProductManager {
     }
 
     public Product[] searchBy(String text) {
-        Product[] result = new Product[0];
+        Product[] result;
+        int resultSize = 0;
+
         for (Product someProduct : repo.showAll()) {
             if (someProduct.matches(text)) {
-                Product[] tmp = new Product[result.length + 1];
-                tmp[tmp.length - 1] = someProduct;
-                result = tmp;
+                resultSize++;
+            }
+        }
+        result = new Product[resultSize];
+
+        int copyToIndex = 0;
+        for (Product someProduct : repo.showAll()) {
+            if (someProduct.matches(text)) {
+                result[copyToIndex] = someProduct;
+                copyToIndex++;
             }
         }
         return result;
